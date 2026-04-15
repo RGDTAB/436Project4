@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import androidx.navigation.Navigation
 import com.android.volley.Request
 import com.android.volley.toolbox.Volley
@@ -31,8 +33,15 @@ class FirstFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.button.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.mainToSecond)
+        binding.etSearchFirst.setOnEditorActionListener { v, actionId, event -> Boolean
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                val userInput = binding.etSearchFirst.text.toString()
+                val action = FirstFragmentDirections.mainToSecond(userInput)
+                Navigation.findNavController(binding.etSearchFirst).navigate(action)
+                true
+            } else {
+                false
+            }
         }
 
         WordOfTheDay()
