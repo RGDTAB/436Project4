@@ -34,7 +34,7 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.etSearchFirst.setOnEditorActionListener { v, actionId, event -> Boolean
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 val userInput = binding.etSearchFirst.text.toString()
                 val action = FirstFragmentDirections.mainToSecond(userInput)
                 Navigation.findNavController(binding.etSearchFirst).navigate(action)

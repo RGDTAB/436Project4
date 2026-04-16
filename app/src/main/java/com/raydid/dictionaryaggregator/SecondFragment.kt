@@ -50,7 +50,7 @@ class SecondFragment : Fragment() {
             findNavController().popBackStack()
         }
         binding.etSearchSecond.setOnEditorActionListener { v, actionId, event -> Boolean
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 val word = binding.etSearchSecond.text.toString()
                 fetchDefinition(word)
                 true

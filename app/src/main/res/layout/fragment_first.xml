@@ -123,6 +123,7 @@
         android:backgroundTint="#9D7E7E"
         android:ems="10"
         android:hint="@string/seachBtn"
+        android:imeOptions="actionSearch"
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
