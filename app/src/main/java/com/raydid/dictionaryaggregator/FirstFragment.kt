@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.android.volley.Request
 import com.android.volley.toolbox.Volley
@@ -14,7 +15,10 @@ import com.raydid.dictionaryaggregator.databinding.FragmentFirstBinding
 import com.android.volley.toolbox.JsonObjectRequest
 
 
+
+
 class FirstFragment : Fragment() {
+    private lateinit var viewModel: DictionaryViewModel
     private var _binding : FragmentFirstBinding? = null
     private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,16 +32,32 @@ class FirstFragment : Fragment() {
 // Inflate the layout for this fragment
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
         return binding.root
+
+
     }//end onCreateView
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
         binding.etSearchFirst.setOnEditorActionListener { v, actionId, event -> Boolean
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 val userInput = binding.etSearchFirst.text.toString()
-                val action = FirstFragmentDirections.mainToSecond(userInput)
-                Navigation.findNavController(binding.etSearchFirst).navigate(action)
+                //make sure only letters can get seached
+                when{
+                    userInput.isEmpty() -> {
+                        binding.etSearchFirst.error = "Please enter a word"
+                    }
+
+                    !userInput.all { it.isLetter()} -> {
+                        binding.etSearchFirst.error = "Only letters allowed"
+                    }
+                    else -> {
+                        val action = FirstFragmentDirections.mainToSecond(userInput)
+                        Navigation.findNavController(binding.etSearchFirst).navigate(action)
+                    }
+                }
                 true
             } else {
                 false

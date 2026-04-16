@@ -20,6 +20,7 @@ import com.raydid.dictionaryaggregator.databinding.FragmentSecondBinding
 
 
 class SecondFragment : Fragment() {
+    private lateinit var viewModel: DictionaryViewModel
     private var _binding : FragmentSecondBinding? = null
     private val binding get() = _binding!!
 
@@ -52,7 +53,20 @@ class SecondFragment : Fragment() {
         binding.etSearchSecond.setOnEditorActionListener { v, actionId, event -> Boolean
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 val word = binding.etSearchSecond.text.toString()
-                fetchDefinition(word)
+                //make sure only letters can get seached
+                when {
+                    word.isEmpty() -> {
+                        binding.etSearchSecond.error = "Please enter a word"
+                    }
+
+                    !word.all { it.isLetter() } -> {
+                        binding.etSearchSecond.error = "Only letters allowed"
+                    }
+
+                    else -> {
+                        fetchDefinition(word)
+                    }
+                }
                 true
             } else {
                 false
@@ -88,7 +102,7 @@ class SecondFragment : Fragment() {
 
             // if unsuccessful return error messages
             { error ->
-                val errorMsg = "$word: $error"
+                val errorMsg = "$word: Word not found"
                 binding.tvSearchWord.text = errorMsg
                 binding.recyclerView.visibility = View.GONE
             }
