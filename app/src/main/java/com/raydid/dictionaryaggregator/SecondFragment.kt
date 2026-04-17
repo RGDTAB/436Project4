@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +18,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.raydid.dictionaryaggregator.databinding.FragmentFirstBinding
 import com.raydid.dictionaryaggregator.databinding.FragmentSecondBinding
+
 
 
 class SecondFragment : Fragment() {
@@ -47,9 +49,25 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel = ViewModelProvider(requireActivity())[DictionaryViewModel::class.java]
+
+        // restore search word and results on rotation
+        viewModel.searchWord.observe(viewLifecycleOwner) { word ->
+            binding.tvSearchWord.text = word
+        }
+
+        viewModel.searchResults.observe(viewLifecycleOwner) { results ->
+            if (results != null) {
+                binding.recyclerView.visibility = View.VISIBLE
+                binding.recyclerView.adapter = DefinitionAdapter(results)
+            }
+        }
+
+
         binding.backBtn.setOnClickListener {
             findNavController().popBackStack()
         }
+
         binding.etSearchSecond.setOnEditorActionListener { v, actionId, event -> Boolean
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 val word = binding.etSearchSecond.text.toString()
@@ -77,24 +95,30 @@ class SecondFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        arguments?.let {
-            val args = SecondFragmentArgs.fromBundle(it)
-            val word = args.searchQuery
-            binding.etSearchSecond.setText(word)
-            fetchDefinition(word)
+        // only fetch from arguments if we don't already have data saved
+        if (viewModel.searchResults.value == null) {
+            arguments?.let {
+                val args = SecondFragmentArgs.fromBundle(it)
+                val word = args.searchQuery
+                binding.etSearchSecond.setText(word)
+                fetchDefinition(word)
+            }
         }
     }
 
     fun fetchDefinition(word : String) {
         binding.tvSearchWord.text = word
         val queue = Volley.newRequestQueue(requireContext())
-        val url = " https://api.dictionaryapi.dev/api/v2/entries/en/$word"
+        val url = "https://api.dictionaryapi.dev/api/v2/entries/en/$word"
 
         val request = JsonArrayRequest(
             Request.Method.GET, url, null,
             { response ->
                 val meanings = response.getJSONObject(0).getJSONArray("meanings")
+                viewModel.searchWord.value = word
+                viewModel.searchResults.value = meanings
                 val definitionAdapter = DefinitionAdapter(meanings)
+
 
                 binding.recyclerView.visibility = View.VISIBLE
                 binding.recyclerView.adapter = definitionAdapter

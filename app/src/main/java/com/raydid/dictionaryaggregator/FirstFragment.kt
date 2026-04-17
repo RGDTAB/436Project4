@@ -40,19 +40,23 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel = ViewModelProvider(requireActivity())[DictionaryViewModel::class.java]
 
-        binding.etSearchFirst.setOnEditorActionListener { v, actionId, event -> Boolean
+
+        binding.etSearchFirst.setOnEditorActionListener { v, actionId, event ->
+            Boolean
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 val userInput = binding.etSearchFirst.text.toString()
                 //make sure only letters can get seached
-                when{
+                when {
                     userInput.isEmpty() -> {
                         binding.etSearchFirst.error = "Please enter a word"
                     }
 
-                    !userInput.all { it.isLetter()} -> {
+                    !userInput.all { it.isLetter() } -> {
                         binding.etSearchFirst.error = "Only letters allowed"
                     }
+
                     else -> {
                         val action = FirstFragmentDirections.mainToSecond(userInput)
                         Navigation.findNavController(binding.etSearchFirst).navigate(action)
@@ -64,7 +68,27 @@ class FirstFragment : Fragment() {
             }
         }
 
-        WordOfTheDay()
+        //save state of word and definition of the day so it doesn't have to reload the api
+        viewModel.wordOfTheDay.observe(viewLifecycleOwner) { word ->
+            binding.tvWord.text = word
+        }
+
+        viewModel.definitionOfTheDay.observe(viewLifecycleOwner) { meaning ->
+            binding.tvDefinition.text = meaning
+        }
+
+        //call word of day if not saved in viewmodel yet
+        if (viewModel.wordOfTheDay.value == null) {
+            WordOfTheDay()
+        }
+    }
+
+    // show the last searched word in the bar after coming back from second fragment
+    override fun onResume() {
+        super.onResume()
+        viewModel.searchWord.value?.let { word ->
+            binding.etSearchFirst.setText(word)
+        }
     }
 
 
@@ -86,6 +110,9 @@ class FirstFragment : Fragment() {
                 val word = response.getString("word")
                 val meaning = response.getString("meaning")
                 val partOfSpeech = response.getString("partOfSpeech")
+
+                viewModel.wordOfTheDay.value = word
+                viewModel.definitionOfTheDay.value = "($partOfSpeech) $meaning"
 
                 binding.tvWord.text = word
                 binding.tvDefinition.text = "($partOfSpeech) $meaning"
