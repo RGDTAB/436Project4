@@ -1,7 +1,40 @@
 <resources>
     <string name="app_name">DictionaryAggregator</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="seachBtn">Search for a word...</string>
-    <string name="word" />
+
+
+    <string name="title_main">My Pocket Dictionary</string>
+    <string name="wotd_header">Word of the Day:</string>
+
+
+    <string name="word">Word</string>
+    <string name="noun">Noun</string>
+    <string name="definition_goes_here">definition</string>
+    <string name="synonyms">Synonyms:…</string>
+    <string name="antonyms">Antonyms:…</string>
+
+
+    <string name="word_placeholder">Word</string>
+    <string name="def_placeholder">definition</string>
+    <string name="phonetic_placeholder">/phonetic/</string>
+
+
+    <string name="btn_listen">Listen</string>
+    <string name="btn_back">Back</string>
+    <string name="seachBtn">Search for a word…</string> <string name="not_found">%1$s: Word not found</string>
+    <string name="wotd_format">(%1$s) %2$s</string>
+    <string name="synonyms_label">Synonyms: %1$s</string>
+    <string name="antonyms_label">Antonyms: %1$s</string>
+
+
+    <string name="error_empty">Please enter a word</string>
+    <string name="error_letters">Only letters allowed</string>
+    <string name="unavailable">Unavailable</string>
+    <string name="load_error">Could not load word of the day.</string>
+
+
+    <string name="border_description">Decorative border</string>
+    <string name="definition">definition</string>
+    <string name="my_pocket_dictionary">My Pocket Dictionary</string>
+    <string name="word_of_the_day">Word of the Day:</string>
 </resources>
+

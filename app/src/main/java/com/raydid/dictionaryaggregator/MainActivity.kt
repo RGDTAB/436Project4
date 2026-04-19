@@ -1,6 +1,8 @@
 package com.raydid.dictionaryaggregator
 
-import android.net.Uri
+
+
+
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -8,8 +10,10 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.raydid.dictionaryaggregator.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity(), SecondFragment.OnFragmentInteractionListener {
+
+class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,12 +21,13 @@ class MainActivity : AppCompatActivity(), SecondFragment.OnFragmentInteractionLi
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
     }//end onCreate
-    override fun onFragmentInteraction(uri: Uri) {
-    } //end onFragmentInteraction
+
+
 }

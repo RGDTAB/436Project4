@@ -9,11 +9,14 @@
     tools:context=".FirstFragment">
 
 
+
+
     <ImageView
-        android:alpha="0.5"
         android:id="@+id/imageView"
         android:layout_width="342dp"
         android:layout_height="379dp"
+        android:alpha="0.5"
+        android:importantForAccessibility="no"
         android:src="@drawable/book"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,11 +25,13 @@
         app:layout_constraintTop_toBottomOf="@+id/tvTitle2"
         app:layout_constraintVertical_bias="0.261" />
 
+
     <ImageView
-        android:alpha="0.5"
         android:id="@+id/ivbordertopleft"
         android:layout_width="162dp"
         android:layout_height="156dp"
+        android:alpha="0.5"
+        android:importantForAccessibility="no"
         android:src="@drawable/brownborder"
         app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toStartOf="@+id/ivbordertopright"
@@ -35,11 +40,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
+
     <ImageView
-        android:alpha="0.5"
         android:id="@+id/ivbordertopright"
         android:layout_width="171dp"
         android:layout_height="159dp"
+        android:alpha="0.5"
+        android:importantForAccessibility="no"
         android:rotation="90"
         android:src="@drawable/brownborder"
         app:layout_constraintBottom_toTopOf="@+id/imageView"
@@ -48,6 +55,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
+
 
     <TextView
         android:id="@+id/tvWord"
@@ -59,12 +67,13 @@
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="4"
-        android:text="word"
+        android:text="@string/word"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView" />
+
 
     <TextView
         android:id="@+id/tvDefinition"
@@ -75,22 +84,22 @@
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="4"
-        android:text="definition"
+        android:text="@string/definition"
         android:textAlignment="center"
         android:textSize="16sp"
-        android:typeface="normal"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/tvWord"
         app:layout_constraintVertical_bias="0.358" />
 
+
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="191dp"
         android:layout_height="70dp"
         android:fontFamily="monospace"
-        android:text="My Pocket Dictionary"
+        android:text="@string/my_pocket_dictionary"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -100,12 +109,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.106" />
 
+
     <TextView
         android:id="@+id/tvTitle2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="monospace"
-        android:text="Word of the Day:"
+        android:text="@string/word_of_the_day"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -114,12 +124,14 @@
         app:layout_constraintTop_toBottomOf="@+id/etSearchFirst"
         app:layout_constraintVertical_bias="0.13999999" />
 
+
     <EditText
         android:id="@+id/etSearchFirst"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
+        android:autofillHints="none"
         android:backgroundTint="#9D7E7E"
         android:ems="10"
         android:hint="@string/seachBtn"
@@ -130,6 +142,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle"
         app:layout_constraintVertical_bias="0.050000012" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
