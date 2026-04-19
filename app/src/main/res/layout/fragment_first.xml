@@ -143,7 +143,17 @@
         app:layout_constraintTop_toBottomOf="@+id/tvTitle"
         app:layout_constraintVertical_bias="0.050000012" />
 
-
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#9D7E7E"
+        android:text="@string/seachBtn"
+        app:layout_constraintBottom_toTopOf="@+id/tvTitle2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etSearchFirst" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

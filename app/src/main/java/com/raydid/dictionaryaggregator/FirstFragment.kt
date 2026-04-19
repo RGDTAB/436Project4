@@ -7,9 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-
-
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.android.volley.Request
 import com.android.volley.toolbox.Volley
@@ -57,36 +56,29 @@ class FirstFragment : Fragment() {
 
 
 
-        binding.etSearchFirst.setOnEditorActionListener { _, actionId, _ ->
-
-
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                val userInput = binding.etSearchFirst.text.toString()
-                //make sure only letters can get searched
-                when {
-                    userInput.isEmpty() -> {
-                        binding.etSearchFirst.error = "Please enter a word"
-                    }
-
-
-                    !userInput.all { it.isLetter() } -> {
-                        binding.etSearchFirst.error = "Only letters allowed"
-                    }
-
-
-                    else -> {
-                        // Clear previous results before navigating
-                        viewModel.searchResults.value = null
-                        viewModel.searchWord.value = null
-                        viewModel.audioUrl.value = null
-                        viewModel.phonetic.value = null
-                        val action = FirstFragmentDirections.mainToSecond(userInput)
-                        findNavController().navigate(action)
-                    }
+        binding.btnSearch.setOnClickListener {
+            val userInput = binding.etSearchFirst.text.toString()
+            //make sure only letters can get searched
+            when {
+                userInput.isEmpty() -> {
+                    binding.etSearchFirst.error = "Please enter a word"
                 }
-                true
-            } else {
-                false
+
+
+                !userInput.all { it.isLetter() } -> {
+                    binding.etSearchFirst.error = "Only letters allowed"
+                }
+
+
+                else -> {
+                    // Clear previous results before navigating
+                    viewModel.searchResults.value = null
+                    viewModel.searchWord.value = null
+                    viewModel.audioUrl.value = null
+                    viewModel.phonetic.value = null
+                    val action = FirstFragmentDirections.mainToSecond(userInput)
+                    findNavController().navigate(action)
+                }
             }
         }
 
