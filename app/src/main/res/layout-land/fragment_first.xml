@@ -136,6 +136,7 @@
         android:id="@+id/btnSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="#9D7E7E"
         android:text="@string/seachBtn"
         app:layout_constraintBottom_toTopOf="@+id/tvTitle2"
         app:layout_constraintEnd_toStartOf="@+id/imageView"
